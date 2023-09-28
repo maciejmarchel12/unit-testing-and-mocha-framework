@@ -91,5 +91,19 @@ describe("Catalogue", () => {
           expect(rejectedProduct).to.be.undefined; 
         });
     });
+    describe("search", () => {
+      it('should return products cheaper than the specified price', function () {
+        const result = cat.search({ price: 25.00 });
+        expect(result).to.be.an('array');
+      });
+      it('should return products with the specified keyword in their name', function () {
+        const result = cat.search({ keyword: "sho" });
+        expect(result).to.be.an('array');
+      });
+      it('should throw an exception for criteria with neither key', function () {
+        const searchFn = () => cat.search({});
+        expect(searchFn).to.throw('Bad search');
+      });
+    });
   });
 });

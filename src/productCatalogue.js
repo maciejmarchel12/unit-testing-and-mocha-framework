@@ -52,5 +52,20 @@ class Catalogue {
     return noProductsAdded;
   }
 
+  search(product) {
+    if ('price' in product) {
+      const price = parseFloat(product.price);
+      if (isNaN(price)) {
+        throw new Error('Invalid price value')
+      }
+      return this.products.filter(product => product.price <= price);
+    } else if ('keyword' in product) {
+      const keyword = product.keyword.toLowerCase();
+      return this.products.filter(product => product.name.toLowerCase().includes(keyword));
+    } else {
+      throw new Error('Bad search');
+    }
+  }
+
 }
 module.exports = Catalogue;
